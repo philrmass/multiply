@@ -11,7 +11,7 @@ module.exports = {
         test: /\.(js)$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        use: ['eslint-loader']
+        use: ['eslint-loader'],
       },
       {
         test: /\.css$/,
@@ -44,5 +44,5 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     watchContentBase: true,
-  }
+  },
 };

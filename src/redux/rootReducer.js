@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import graphReducer from './graph/reducer';
+import gameReducer from './game/reducer';
 
 const rootReducer = combineReducers({
- graph: graphReducer,
+  game: gameReducer,
 });
 
 export default rootReducer;

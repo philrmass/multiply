@@ -1,8 +1,8 @@
 import React from 'react';
 
-function App() {
+function App(isActive) {
   return (
-    <div>{'THIS IS APP'}</div>
+    <div>{`THIS IS APP (${isActive})`}</div>
   );
 }
 
