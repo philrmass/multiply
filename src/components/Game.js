@@ -12,13 +12,13 @@ function Game() {
     <>
       <div>Game</div>
       <form onSubmit={onSubmit}>
-        <input type="number" value={999}/>
+        <input type='number' value={999}/>
       </form>
     </>
   );
 }
 
-const mapState = (state) => ({
+const mapState = () => ({
 });
 
 export default connect(mapState)(Game);

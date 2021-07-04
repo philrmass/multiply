@@ -7,7 +7,7 @@ function Inactive() {
   );
 }
 
-const mapState = (state) => ({
+const mapState = () => ({
 });
 
 export default connect(mapState)(Inactive);

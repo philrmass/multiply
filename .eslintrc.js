@@ -24,6 +24,7 @@ module.exports = {
     },
   },
   'rules': {
+    /*
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'always'],
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
@@ -55,11 +56,14 @@ module.exports = {
     'object-curly-spacing': ['warn', 'always'],
     'prefer-const': 'error'
     'prefer-arrow-callback': [ 'error', { 'allowNamedFunctions': true } ],
+    */
     'quotes': ['warn', 'single', { 'avoidEscape': true }],
-    'react/prop-types': 'warn',
+    'react/prop-types': 'off',
+    /*
     'require-await': 'error',
     'semi': ['error', 'always'],
     'space-before-blocks': 'warn',
     'strict': ['error', 'never'],
+  */
   },
 };

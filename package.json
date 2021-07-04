@@ -16,7 +16,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "deploy": "gh-pages -d dist",
-    "lint": "eslint src/** src/**/**",
+    "lint": "eslint src",
     "predeploy": "npm run build",
     "start": "webpack serve --config ./webpack.config.js --mode development",
     "test": "jest"

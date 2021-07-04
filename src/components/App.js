@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Game from './Game';
 import Inactive from './Inactive';
 
+/* eslint-disable react/prop-types */
 function App({ isActive }) {
   if (isActive) {
     return <Game />;
