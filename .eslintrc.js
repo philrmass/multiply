@@ -18,6 +18,11 @@ module.exports = {
   'plugins': [
     'react',
   ],
+  'settings': {
+    'react': {
+      'version': 'detect',
+    },
+  },
   'rules': {
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'always'],
@@ -56,10 +61,5 @@ module.exports = {
     'semi': ['error', 'always'],
     'space-before-blocks': 'warn',
     'strict': ['error', 'never'],
-  },
-  'settings': {
-    'react': {
-      'version': 'detect',
-    },
   },
 };
