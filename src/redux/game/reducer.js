@@ -6,7 +6,7 @@ const defaultState = {
   isActive: false,
 };
 
-export default function reducer(state = defaultState, action)  {
+export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case START: {
       return {

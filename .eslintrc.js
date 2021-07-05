@@ -24,7 +24,6 @@ module.exports = {
     },
   },
   'rules': {
-    /*
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'always'],
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
@@ -38,14 +37,14 @@ module.exports = {
     'key-spacing': 'warn',
     'linebreak-style': ['error', 'unix'],
     'no-irregular-whitespace': 'warn',
-    'no-console': ['error', { allow: ['error']}],
+    //'no-console': ['warn', { allow: ['error'] }],
     'no-else-return': 'warn',
     'no-eval': 'error',
     'no-extra-bind': 'warn',
     'no-implicit-coercion': 'warn',
     'no-implied-eval': 'error',
     'no-multi-spaces': 'warn',
-    'no-redeclare' : 'error',
+    'no-redeclare': 'error',
     'no-return-assign': 'error',
     'no-script-url': 'error',
     'no-sequences': 'warn',
@@ -54,16 +53,13 @@ module.exports = {
     'no-unused-vars': 'warn',
     'no-useless-return': 'warn',
     'object-curly-spacing': ['warn', 'always'],
-    'prefer-const': 'error'
+    'prefer-const': 'error',
     'prefer-arrow-callback': [ 'error', { 'allowNamedFunctions': true } ],
-    */
     'quotes': ['warn', 'single', { 'avoidEscape': true }],
-    'react/prop-types': 'off',
-    /*
+    'react/prop-types': 0,
     'require-await': 'error',
     'semi': ['error', 'always'],
     'space-before-blocks': 'warn',
     'strict': ['error', 'never'],
-  */
   },
 };
