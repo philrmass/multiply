@@ -7,9 +7,14 @@ import { start } from '../redux/game/actions';
 function Home({
   start,
 }) {
+  const startGame = () => {
+    start();
+    //pickQuestion();
+  };
+
   return (
     <div className='home'>
-      <button onClick={start}>Start</button>
+      <button onClick={startGame}>Start</button>
     </div>
   );
 }

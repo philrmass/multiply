@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { useInterval } from '../utilities/hooks';
 import { getCurrentDay } from '../utilities/time';
+import { init } from '../redux/game/actions';
 
 import Game from './Game';
 import Header from './Header';
@@ -12,13 +13,19 @@ import Home from './Home';
 function App({
   today,
   isActive,
+  init,
 }) {
-  useInterval(() => {
+  const questionsPerDay = 150;
+
+  const checkDay = () => {
     const currentDay = getCurrentDay();
     if (currentDay !== today) {
-      console.log('TDY', today, currentDay);
+      init(currentDay, questionsPerDay);
     }
-  }, 2000);
+  };
+
+  useInterval(checkDay, 60000);
+  useEffect(checkDay, [today]);
 
   const buildContent = () => {
     if (isActive) {
@@ -40,4 +47,8 @@ const mapState = (state) => ({
   isActive: state.game.isActive,
 });
 
-export default connect(mapState)(App);
+const mapDispatch = {
+  init,
+};
+
+export default connect(mapState, mapDispatch)(App);

@@ -6,11 +6,11 @@ import { getDateString } from '../utilities/time';
 /* eslint-disable react/prop-types */
 function Header({
   today,
-  questions,
+  total,
+  answered,
 }) {
   const date = getDateString(today);
-  const progress = `${0} / ${questions?.length}`;
-  console.log('QUES', questions);
+  const progress = `${answered} / ${total}`;
 
   return (
     <div className='header'>
@@ -22,7 +22,8 @@ function Header({
 
 const mapState = (state) => ({
   today: state.game.today,
-  questions: state.game.questions,
+  total: state.game.total,
+  answered: state.game.answered,
 });
 
 export default connect(mapState)(Header);
