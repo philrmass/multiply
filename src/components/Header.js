@@ -16,6 +16,7 @@ function Header({
     <div className='header'>
       <div>{date}</div>
       <div>{progress}</div>
+      <div>Stats</div>
     </div>
   );
 }

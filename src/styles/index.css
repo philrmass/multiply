@@ -17,7 +17,6 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: #def;
   font-family: Arial, sans-serif;
   font-size: 20px;
 }
@@ -45,15 +44,49 @@ button {
 }
 
 .home {
-  height: 100%;
+  height: 80%;
   padding: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
 }
 
 .game {
-  height: 100%;
   padding: 16px;
+}
+
+.stop {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gameContent {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.problem {
+  font-size: 70px;
+}
+
+.question {
+  text-align: right;
+  border-bottom: 5px solid black;
+}
+
+.answer {
+  padding: 0 8px;
+  margin-top: 8px;
+  text-align: right;
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

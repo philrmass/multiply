@@ -1,8 +1,11 @@
 import {
+  ANSWER_QUESTION,
   INIT,
+  PICK_QUESTION,
   START,
+  STOP,
 } from '../constants';
-import { getAllQuestions/*, pickQuestion, parseQuestion*/ } from '../../utilities/questions';
+import { getAllQuestions, pickQuestion, parseQuestion } from '../../utilities/questions';
 
 const todayKey = 'multiplyToday';
 const questionsKey = 'multiplyQuestions';
@@ -12,7 +15,7 @@ const defaultState = {
   start: 0,
   first: 0,
   second: 0,
-  answer: 0,
+  result: 0,
   total: 0,
   answered: 0,
   stats: {},
@@ -30,6 +33,7 @@ export default function reducer(state = defaultState, action) {
 
       saveToday(today);
       saveQuestions(questions);
+      //??? save and load total
 
       return {
         ...state,
@@ -45,16 +49,53 @@ export default function reducer(state = defaultState, action) {
         isActive: true,
       };
     }
-    //add more questions from stats if empty, getHardQuestions(stats, count)
-    //const { question, questions } = pickQuestion(state.questions);
-    //const { first, second } = parseQuestion(question);
-    //saveQuestions(questions);
-    //first,
-    //second,
-    //answer: 0,
-    //showResult: false,
+    case STOP: {
+      //??? save current question
+      //saveQuestions(questions);
+
+      return {
+        ...state,
+        isActive: false,
+      };
+    }
+    case PICK_QUESTION: {
+      const allQuestions = state.questions;
+      //??? if empty, questions = getHardQuestions(stats, 15)
+
+      const { question, questions } = pickQuestion(allQuestions);
+      const { first, second } = parseQuestion(question);
+
+      saveQuestions(questions);
+
+      return {
+        ...state,
+        questions,
+        start: Date.now(),
+        first,
+        second,
+        showResult: false,
+      };
+    }
+    case ANSWER_QUESTION: {
+      const correct = state.first * state.second;
+      const isCorrect = action.value === correct;
+      const answered = state.answered + (isCorrect ? 1 : 0);
+
+      if (isCorrect) {
+        // ??? add time to stats, save stats
+        const time = Date.now() - state.start;
+        console.log(`answer(${time}) ${isCorrect}`);
+      }
+
+      return {
+        ...state,
+        result: action.value,
+        answered,
+        showResult: true,
+        isCorrect,
+      };
+    }
     default:
-      //??? console.log('else', state.today, state.questions);
       return state;
   }
 }
