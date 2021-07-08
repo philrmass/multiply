@@ -15,9 +15,12 @@ import {
 } from '../../utilities/questions';
 import { saveItem, loadItem } from '../../utilities/storage';
 
-const todayKey = 'multiplyToday';
+const answeredKey = 'multiplyAnswered';
 const questionsKey = 'multiplyQuestions';
+const statsKey = 'multiplyStats';
+const todayKey = 'multiplyToday';
 const totalKey = 'multiplyTotal';
+
 const defaultState = {
   today: loadItem(todayKey, 0),
   questions: loadItem(questionsKey, []),
@@ -26,8 +29,8 @@ const defaultState = {
   second: 0,
   result: 0,
   total: loadItem(totalKey, 0),
-  answered: 0,
-  stats: {},
+  answered: loadItem(answeredKey, 0),
+  stats: loadItem(statsKey, {}),
   isActive: false,
   showResult: false,
   isCorrect: false,
@@ -37,12 +40,14 @@ const defaultState = {
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case INIT: {
-      const today = action.today;
+      const answered = 0;
       const questions = getAllQuestions();
+      const today = action.today;
       const total = action.total;
 
-      saveItem(todayKey, today);
+      saveItem(answeredKey, answered);
       saveItem(questionsKey, questions);
+      saveItem(todayKey, today);
       saveItem(totalKey, total);
 
       return {
@@ -50,7 +55,7 @@ export default function reducer(state = defaultState, action) {
         today,
         questions,
         total,
-        answered: 0,
+        answered,
       };
     }
     case START: {
@@ -88,6 +93,7 @@ export default function reducer(state = defaultState, action) {
         start: Date.now(),
         first,
         second,
+        missed: 0,
         showResult: false,
       };
     }
@@ -100,17 +106,26 @@ export default function reducer(state = defaultState, action) {
       const correct = state.first * state.second;
       const isCorrect = action.value === correct;
       const answered = state.answered + (isCorrect ? 1 : 0);
+      const missed = state.missed + (isCorrect ? 0 : 1);
+      const stats = state.stats;
 
       if (isCorrect) {
-        // ??? add time to stats, save stats
+        // ??? put days int stats, answered, missed, total, all times
+        // ??? add time & missed to stats, save stats
         const time = Date.now() - state.start;
         console.log(`answer(${time}) ${isCorrect}`);
+        //??? if done, do confetti in Game
       }
+
+      saveItem(answeredKey, answered);
+      saveItem(statsKey, stats);
 
       return {
         ...state,
         result: action.value,
         answered,
+        missed,
+        stats,
         showResult: true,
         isCorrect,
       };
