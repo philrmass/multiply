@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { stop, pickQuestion, repeatQuestion, answerQuestion } from '../redux/game/actions';
@@ -15,6 +15,7 @@ function Game({
   repeatQuestion,
   answerQuestion,
 }) {
+  const inputRef = useRef(null);
   const [value, setValue] = useState('');
 
   useEffect(() => {
@@ -26,6 +27,8 @@ function Game({
       } else {
         setTimeout(repeatQuestion, delayMs);
       }
+    } else {
+      inputRef?.current?.focus();
     }
   }, [showResult, isCorrect]);
 
@@ -58,6 +61,7 @@ function Game({
 
     return (
       <input
+        ref={inputRef}
         type='number'
         min='1'
         max='999'

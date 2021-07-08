@@ -69,7 +69,7 @@ button {
 }
 
 .problem {
-  font-size: 70px;
+  font-size: 90px;
 }
 
 .question {
@@ -78,6 +78,7 @@ button {
 }
 
 .answer {
+  width: 2em;
   padding: 0 8px;
   margin-top: 8px;
   text-align: right;
