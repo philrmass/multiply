@@ -85,6 +85,14 @@ button {
   border-radius: 8px;
 }
 
+.pass {
+  background: #30ff60;
+}
+
+.fail {
+  background: #ff6060;
+}
+
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 

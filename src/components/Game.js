@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { stop, pickQuestion, answerQuestion } from '../redux/game/actions';
+import { stop, pickQuestion, repeatQuestion, answerQuestion } from '../redux/game/actions';
 
 /* eslint-disable react/prop-types */
 function Game({
@@ -11,15 +11,23 @@ function Game({
   showResult,
   isCorrect,
   stop,
-  //pickQuestion,
-  //repeatQuestion,
+  pickQuestion,
+  repeatQuestion,
   answerQuestion,
 }) {
   const [value, setValue] = useState('');
 
-  //??? useEffect [showResult, isCorrect]
-  // if showResult && isCorrect, pickQuestion() after timeout
-  // if showResult && !isCorrect, repeatQuestion() after timeout
+  useEffect(() => {
+    const delayMs = 500;
+
+    if (showResult) {
+      if(isCorrect) {
+        setTimeout(pickQuestion, delayMs);
+      } else {
+        setTimeout(repeatQuestion, delayMs);
+      }
+    }
+  }, [showResult, isCorrect]);
 
   const onInput = (e) => {
     setValue(e.target.value);
@@ -34,8 +42,19 @@ function Game({
   };
 
   const buildResult = () => {
-    //??? if showResult, set fixed 'input' with result and color
-    console.log(` show(${showResult}) res(${result}) corr(${isCorrect})`);
+    const resultClass = isCorrect ? 'answer pass' : 'answer fail';
+
+    if (showResult) {
+      return (
+        <input
+          type='number'
+          min='1'
+          max='999'
+          className={resultClass}
+          value={result}
+        />
+      );
+    }
 
     return (
       <input
@@ -81,6 +100,7 @@ const mapState = (state) => ({
 const mapDispatch = {
   stop,
   pickQuestion,
+  repeatQuestion,
   answerQuestion,
 };
 

@@ -3,7 +3,7 @@ export function getAllQuestions() {
 
   for (let first = 2; first <= 12; first++) {
     for (let second = 2; second <= 12; second++) {
-      questions.push(`${first}_${second}`);
+      questions.push(createQuestion(first, second));
     }
   }
 
@@ -21,6 +21,10 @@ export function pickQuestion(all) {
   return { question, questions };
 }
 
+export function createQuestion(first, second) {
+  return `${first}_${second}`;
+}
+
 export function parseQuestion(question) {
   if (typeof question !== 'string') {
     return {};
@@ -31,4 +35,16 @@ export function parseQuestion(question) {
   const second = Number(parts[1]);
 
   return { first, second };
+}
+
+export function getHardQuestions(/*stats, count*/) {
+  const questions = [];
+
+  for (let first = 6; first <= 8; first++) {
+    for (let second = 6; second <= 8; second++) {
+      questions.push(createQuestion(first, second));
+    }
+  }
+
+  return questions;
 }

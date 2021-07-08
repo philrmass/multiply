@@ -2,6 +2,7 @@ import {
   ANSWER_QUESTION,
   INIT,
   PICK_QUESTION,
+  REPEAT_QUESTION,
   START,
   STOP,
 } from '../constants';
@@ -19,6 +20,10 @@ export function stop() {
 
 export function pickQuestion() {
   return { type: PICK_QUESTION };
+}
+
+export function repeatQuestion() {
+  return { type: REPEAT_QUESTION };
 }
 
 export function answerQuestion(value) {
