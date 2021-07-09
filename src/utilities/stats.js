@@ -36,6 +36,26 @@ export function addAnswer(stats, { today, total, min, question, time, wrong }) {
 }
 
 export function getAverageTimes(stats) {
-  //??? get averages and sort
-  console.log('aves', stats);
+  const maxTimes = 3;
+
+  const questions = stats?.questions ?? {};
+  const keys = Object.keys(questions);
+  const averages = keys.map((key) => {
+    const question = questions[key];
+    const times = question.times.slice(0, maxTimes);
+
+    const count = times.length || 1;
+    const sum = times.reduce((sum, time) => sum + time, 0);
+    const average = sum / count;
+
+    return {
+      question: key,
+      average,
+    };
+  });
+
+  const byReverseAverage = (a, b) => b.average - a.average;
+  averages.sort(byReverseAverage);
+
+  return averages;
 }

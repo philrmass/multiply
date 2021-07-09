@@ -1,8 +1,8 @@
 import { getAverageTimes } from './stats';
 
 export function getAllQuestions() {
-  const min = 4;//2;
-  const max = 6;//12;
+  const min = 2;
+  const max = 12;
   const questions = [];
 
   for (let first = min; first <= max; first++) {
@@ -41,19 +41,10 @@ export function parseQuestion(question) {
   return { first, second };
 }
 
-export function getHardQuestions(stats/*, count*/) {
-  console.log('STATS', stats);
+export function getHardQuestions(stats, count) {
   const averages = getAverageTimes(stats);
-  console.log('AVES', averages);
-  const questions = [];
-
-  const min = 4;
-  const max = 6;
-  for (let first = min; first <= max; first++) {
-    for (let second = min; second <= max; second++) {
-      questions.push(createQuestion(first, second));
-    }
-  }
+  const selected = averages.slice(0, count);
+  const questions = selected.map((item) => item.question);
 
   return questions;
 }
