@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getDateString } from '../utilities/time';
@@ -13,6 +13,15 @@ function Header({
   toggleStats,
 }) {
   const date = getDateString(today);
+
+  useEffect(() => {
+    if (answered === min) {
+      console.log('celebrate');
+    }
+    if (answered === total) {
+      console.log('CELEBRATE!!!');
+    }
+  }, [total, min, answered]);
 
   const buildProgress = () => {
     const progress = `${answered} / ${total}`;

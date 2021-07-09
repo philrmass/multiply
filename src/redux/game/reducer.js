@@ -29,6 +29,7 @@ const defaultState = {
   first: 0,
   second: 0,
   result: 0,
+  //???
   total: 16, //150,
   min: 8, //75,
   answered: loadItem(answeredKey, 0),
@@ -84,7 +85,6 @@ export default function reducer(state = defaultState, action) {
     case PICK_QUESTION: {
       let allQuestions = state.questions;
       if (allQuestions.length === 0) {
-        //??? implement hard questions from stats
         allQuestions = getHardQuestions(state.stats, 15);
       }
 
