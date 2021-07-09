@@ -5,6 +5,7 @@ import {
   REPEAT_QUESTION,
   START,
   STOP,
+  TOGGLE_STATS,
 } from '../constants';
 import {
   getAllQuestions,
@@ -13,13 +14,13 @@ import {
   parseQuestion,
   getHardQuestions,
 } from '../../utilities/questions';
+import { resetDay, addAnswer } from '../../utilities/stats';
 import { saveItem, loadItem } from '../../utilities/storage';
 
 const answeredKey = 'multiplyAnswered';
 const questionsKey = 'multiplyQuestions';
 const statsKey = 'multiplyStats';
 const todayKey = 'multiplyToday';
-const totalKey = 'multiplyTotal';
 
 const defaultState = {
   today: loadItem(todayKey, 0),
@@ -28,7 +29,8 @@ const defaultState = {
   first: 0,
   second: 0,
   result: 0,
-  total: loadItem(totalKey, 0),
+  total: 16, //150,
+  min: 8, //75,
   answered: loadItem(answeredKey, 0),
   stats: loadItem(statsKey, {}),
   isActive: false,
@@ -43,18 +45,22 @@ export default function reducer(state = defaultState, action) {
       const answered = 0;
       const questions = getAllQuestions();
       const today = action.today;
-      const total = action.total;
+      const params = {
+        today,
+        total: state.total,
+        min: state.min,
+      };
+      const stats = resetDay(state.stats, params);
 
       saveItem(answeredKey, answered);
       saveItem(questionsKey, questions);
       saveItem(todayKey, today);
-      saveItem(totalKey, total);
+      saveItem(statsKey, stats);
 
       return {
         ...state,
         today,
         questions,
-        total,
         answered,
       };
     }
@@ -93,7 +99,7 @@ export default function reducer(state = defaultState, action) {
         start: Date.now(),
         first,
         second,
-        missed: 0,
+        wrong: 0,
         showResult: false,
       };
     }
@@ -106,15 +112,20 @@ export default function reducer(state = defaultState, action) {
       const correct = state.first * state.second;
       const isCorrect = action.value === correct;
       const answered = state.answered + (isCorrect ? 1 : 0);
-      const missed = state.missed + (isCorrect ? 0 : 1);
-      const stats = state.stats;
+      const wrong = state.wrong + (isCorrect ? 0 : 1);
+      let stats = state.stats;
 
       if (isCorrect) {
-        // ??? put days int stats, answered, missed, total, all times
-        // ??? add time & missed to stats, save stats
         const time = Date.now() - state.start;
-        console.log(`answer(${time}) ${isCorrect}`);
-        //??? if done, do confetti in Game
+        const params = {
+          today: state.today, 
+          total: state.total,
+          min: state.min,
+          question: createQuestion(state.first, state.second),
+          time,
+          wrong,
+        };
+        stats = addAnswer(stats, params);
       }
 
       saveItem(answeredKey, answered);
@@ -124,12 +135,17 @@ export default function reducer(state = defaultState, action) {
         ...state,
         result: action.value,
         answered,
-        missed,
+        wrong,
         stats,
         showResult: true,
         isCorrect,
       };
     }
+    case TOGGLE_STATS:
+      return {
+        ...state,
+        showStats: !state.showStats,
+      };
     default:
       return state;
   }

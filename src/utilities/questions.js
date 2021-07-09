@@ -1,8 +1,12 @@
+import { getAverageTimes } from './stats';
+
 export function getAllQuestions() {
+  const min = 4;//2;
+  const max = 6;//12;
   const questions = [];
 
-  for (let first = 2; first <= 12; first++) {
-    for (let second = 2; second <= 12; second++) {
+  for (let first = min; first <= max; first++) {
+    for (let second = min; second <= max; second++) {
       questions.push(createQuestion(first, second));
     }
   }
@@ -37,11 +41,16 @@ export function parseQuestion(question) {
   return { first, second };
 }
 
-export function getHardQuestions(/*stats, count*/) {
+export function getHardQuestions(stats/*, count*/) {
+  console.log('STATS', stats);
+  const averages = getAverageTimes(stats);
+  console.log('AVES', averages);
   const questions = [];
 
-  for (let first = 6; first <= 8; first++) {
-    for (let second = 6; second <= 8; second++) {
+  const min = 4;
+  const max = 6;
+  for (let first = min; first <= max; first++) {
+    for (let second = min; second <= max; second++) {
       questions.push(createQuestion(first, second));
     }
   }

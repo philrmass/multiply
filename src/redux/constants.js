@@ -4,3 +4,4 @@ export const PICK_QUESTION = 'PICK_QUESTION';
 export const REPEAT_QUESTION = 'REPEAT_QUESTION';
 export const START = 'START';
 export const STOP = 'STOP';
+export const TOGGLE_STATS = 'TOGGLE_STATS';

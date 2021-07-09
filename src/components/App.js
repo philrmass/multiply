@@ -15,12 +15,10 @@ function App({
   isActive,
   init,
 }) {
-  const questionsPerDay = 150;
-
   const checkDay = () => {
     const currentDay = getCurrentDay();
     if (currentDay !== today) {
-      init(currentDay, questionsPerDay);
+      init(currentDay);
     }
   };
 

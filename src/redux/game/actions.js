@@ -5,10 +5,11 @@ import {
   REPEAT_QUESTION,
   START,
   STOP,
+  TOGGLE_STATS,
 } from '../constants';
 
-export function init(today, total) {
-  return { type: INIT, today, total };
+export function init(today) {
+  return { type: INIT, today };
 }
 export function start() {
   return { type: START };
@@ -28,4 +29,8 @@ export function repeatQuestion() {
 
 export function answerQuestion(value) {
   return { type: ANSWER_QUESTION, value };
+}
+
+export function toggleStats() {
+  return { type: TOGGLE_STATS };
 }
