@@ -13,6 +13,7 @@ import Home from './Home';
 function App({
   today,
   isActive,
+  showStats,
   init,
 }) {
   const checkDay = () => {
@@ -29,6 +30,11 @@ function App({
     if (isActive) {
       return <Game />;
     }
+
+    if (showStats) {
+      return <div>STATS</div>;
+    }
+
     return <Home />;
   };
 
@@ -43,6 +49,7 @@ function App({
 const mapState = (state) => ({
   today: state.game.today,
   isActive: state.game.isActive,
+  showStats: state.game.showStats,
 });
 
 const mapDispatch = {

@@ -29,9 +29,8 @@ const defaultState = {
   first: 0,
   second: 0,
   result: 0,
-  //???
-  total: 16, //150,
-  min: 8, //75,
+  total: 150,
+  min: 75,
   answered: loadItem(answeredKey, 0),
   stats: loadItem(statsKey, {}),
   isActive: false,
