@@ -1,8 +1,8 @@
 import { getAverageTimes } from './stats';
 
 export function getAllQuestions() {
-  const min = 2;
-  const max = 12;
+  const min = 4; //2;
+  const max = 6; //12;
   const questions = [];
 
   for (let first = min; first <= max; first++) {
