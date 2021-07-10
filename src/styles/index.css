@@ -128,7 +128,7 @@ button {
   padding: 0 var(--size-1);
   margin-top: var(--size-1);
   text-align: right;
-  border: 1px solid #b0b0b0;
+  border: 1px solid var(--darkGray);
   border-radius: var(--bigRadius);
 }
 
@@ -144,4 +144,31 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.stats {
+  padding: var(--size-2);
+}
+
+.stats-menu {
+  font-size: 18px;
+}
+
+.stats-menu-row {
+  border-bottom: 1px solid var(--darkGray);
+  display: flex;
+  align-items: center;
+}
+
+.stats-menu-label {
+  padding: var(--size-1) var(--size-2);
+  color: var(--darkGray);
+}
+
+.stats-menu-item {
+  padding: var(--size-1) var(--size-2);
+}
+
+.stats-container {
+  background: #d0d0f0;
 }

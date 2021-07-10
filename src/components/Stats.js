@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { toggleStats } from '../redux/game/actions';
-
 /* eslint-disable react/prop-types */
 function Stats({
   stats,
-  toggleStats,
 }) {
   const [byDay, setByDay] = useState(false);
   const [type, setType] = useState('averageTime');
@@ -18,19 +15,20 @@ function Stats({
 
   const buildMenu = () => (
     <div className='stats-menu'>
-      <div className='stats-menu-options'>
-        <div className='stats-menu-day'>
-          {buildMenuDay()}
+      <div>
+        <div className='stats-menu-row'>
+          <div className='stats-menu-label'>By Day</div>
+          {buildDayOptions()}
         </div>
-        <div className='stats-menu-question'>
-          {buildMenuQuestion()} 
+        <div className='stats-menu-row'>
+          <div className='stats-menu-label'>By Question</div>
+          {buildQuestionOptions()} 
         </div>
       </div>
-      <button onClick={toggleStats}>Close</button>
     </div>
   );
 
-  const buildMenuDay = () => {
+  const buildDayOptions = () => {
     const types = {
       'averageTime': 'Average Time',
       'totalTime': 'Total Time',
@@ -39,20 +37,28 @@ function Stats({
     };
 
     return Object.keys(types).map((type) => (
-      <div key={`day-${type}`} onClick={() => setShown(true, type)}>
+      <div
+        className='stats-menu-item'
+        key={`day-${type}`}
+        onClick={() => setShown(true, type)}
+      >
         {types[type]}
       </div>
     ));
   };
 
-  const buildMenuQuestion = () => {
+  const buildQuestionOptions = () => {
     const types = {
       'averageTime': 'Average Time',
       'missed': 'Missed %',
     };
 
     return Object.keys(types).map((type) => (
-      <div key={`question-${type}`} onClick={() => setShown(false, type)}>
+      <div
+        className='stats-menu-item'
+        key={`question-${type}`}
+        onClick={() => setShown(false, type)}
+      >
         {types[type]}
       </div>
     ));
@@ -80,6 +86,7 @@ function Stats({
       <div className='stats-container'>
         {buildStats()}
       </div>
+      <div>{`${byDay}-${type}`}</div>
     </>
   );
 }
@@ -88,8 +95,4 @@ const mapState = (state) => ({
   stats: state.game.stats,
 });
 
-const mapDispatch = {
-  toggleStats,
-};
-
-export default connect(mapState, mapDispatch)(Stats);
+export default connect(mapState)(Stats);
