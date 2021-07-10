@@ -8,6 +8,7 @@ import { init } from '../redux/game/actions';
 import Game from './Game';
 import Header from './Header';
 import Home from './Home';
+import Stats from './Stats';
 
 /* eslint-disable react/prop-types */
 function App({
@@ -32,7 +33,7 @@ function App({
     }
 
     if (showStats) {
-      return <div>STATS</div>;
+      return <Stats />;
     }
 
     return <Home />;
