@@ -11,7 +11,9 @@
   --mediumGray: #b8b8b8;
   --darkGray: #808080;
   --blue: #c0e0ff;
-  --green: #c0ffe0;
+  --lightGreen: #c0ffe0;
+  --green: #30ff60;
+  --red: #ff6060;
 }
 
 * {
@@ -81,7 +83,7 @@ button {
 
 .bar-filled-1 {
   height: 100%;
-  background: var(--green);
+  background: var(--lightGreen);
 }
 
 .home {
@@ -133,11 +135,11 @@ button {
 }
 
 .pass {
-  background: #30ff60;
+  background: var(--green);
 }
 
 .fail {
-  background: #ff6060;
+  background: var(--red);
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -146,12 +148,10 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
-.stats {
-  padding: var(--size-2);
-}
-
 .stats-menu {
   font-size: 18px;
+  background: var(--lightGray);
+  border-top: 1px solid var(--darkGray);
 }
 
 .stats-menu-row {
@@ -170,5 +170,45 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .stats-container {
-  background: #d0d0f0;
+}
+
+.stats {
+  padding: var(--size-2);
+  display: flex;
+}
+
+.stats-keys {
+}
+
+.stats-graphs {
+  flex: 1;
+}
+
+.stats-values {
+}
+
+.stats-key {
+  height: 1.6em;
+  padding: 0 var(--size-1);
+  display: flex;
+  align-items: center;
+}
+
+.stats-graph {
+  height: 1.6em;
+  padding: 0 var(--size-1);
+  display: flex;
+  align-items: center;
+}
+
+.stats-graph-bar {
+  height: 70%;
+  background: var(--mediumGray);
+}
+
+.stats-value {
+  height: 1.6em;
+  padding: 0 var(--size-1);
+  display: flex;
+  align-items: center;
 }

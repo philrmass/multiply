@@ -59,3 +59,26 @@ export function getAverageTimes(stats) {
 
   return averages;
 }
+
+export function getAverageTime(item) {
+  const times = item.times ?? [];
+  const count = times.length || 1;
+  const sum = times.reduce((sum, time) => sum + time, 0);
+
+  return sum / count;
+}
+
+export function getTotalTime(item) {
+  const times = item.times ?? [];
+  const sum = times.reduce((sum, time) => sum + time, 0);
+
+  return sum;
+}
+
+export function getWrongPercent(item) {
+  const wrongs = item.wrongs ?? [];
+  const total = wrongs.length || 1;
+  const sum = wrongs.reduce((sum, wrong) => sum + wrong, 0);
+
+  return 100 * (sum / total);
+}

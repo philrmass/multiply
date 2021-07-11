@@ -36,7 +36,7 @@ const defaultState = {
   isActive: false,
   showResult: false,
   isCorrect: false,
-  showStats: true,
+  showStats: false,
 };
 
 export default function reducer(state = defaultState, action) {
