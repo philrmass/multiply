@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import confetti from 'canvas-confetti';
 
+import { confetti75, confetti90, confetti105, confetti120, confetti135, confetti150 } from '../utilities/confetti';
 import { getDateString } from '../utilities/time';
 import { stop, toggleStats } from '../redux/game/actions';
 
@@ -15,14 +15,22 @@ function Header({
   toggleStats,
 }) {
   const date = getDateString(today);
+  const version = '0.0.1';
 
   useEffect(() => {
     if (answered === min) {
-      smallCelebration();
-    }
-    if (answered === total) {
+      confetti75();
+    } else if (answered === 90) {
+      confetti90();
+    } else if (answered === 105) {
+      confetti105();
+    } else if (answered === 120) {
+      confetti120();
+    } else if (answered === 135) {
+      confetti135();
+    } else if (answered === total) {
       stop();
-      bigCelebration();
+      confetti150();
     }
   }, [total, min, answered]);
 
@@ -47,60 +55,11 @@ function Header({
   return (
     <div className='header'>
       <div>{date}</div>
+      <div className='version'>{version}</div>
       {buildProgress()}
       <div onClick={toggleStats}>Stats</div>
     </div>
   );
-}
-
-function smallCelebration() {
-  const green = getComputedStyle(document.documentElement).getPropertyValue('--green');
-  const blue = getComputedStyle(document.documentElement).getPropertyValue('--blue');
-
-  confetti({
-    colors: [green, blue],
-    gravity: 0.8,
-    origin: { y: 0.8 },
-    particleCount: 300,
-    spread: 90,
-    startVelocity: 60,
-    ticks: 600,
-  });
-}
-
-function bigCelebration() {
-  const end = Date.now() + 6000;
-  const half = 10;
-  const full = 2 * half;
-  let cycle = 0;
-
-  (function frame() {
-    const left = (cycle % full) === 0;
-    const right = ((cycle + half) % full) === 0;
-    const inc = Math.random() > 0.5 ? 1 : 0;
-    cycle = cycle + inc;
-
-    if (left) {
-      confetti({
-        particleCount: 80,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-      });
-    }
-    if (right) {
-      confetti({
-        particleCount: 80,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-      });
-    }
-
-    if (Date.now() < end) {
-      requestAnimationFrame(frame);
-    }
-  }());
 }
 
 const mapState = (state) => ({

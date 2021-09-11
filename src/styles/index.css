@@ -49,6 +49,7 @@ button {
 }
 
 .header {
+  position: relative;
   padding: var(--size-2);
   background: var(--lightGray);
   display: flex;
@@ -211,4 +212,12 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 0 var(--size-1);
   display: flex;
   align-items: center;
+}
+
+.version {
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  color: var(--darkGray);
+  font-size: 0.6em;
 }
