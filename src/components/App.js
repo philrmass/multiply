@@ -17,6 +17,8 @@ function App({
   showStats,
   init,
 }) {
+  const version = '0.0.3';
+
   const checkDay = () => {
     const currentDay = getCurrentDay();
     if (currentDay !== today) {
@@ -32,7 +34,7 @@ function App({
       return <Game />;
     }
 
-    if (showStats) {
+    if (!showStats) {
       return <Stats />;
     }
 
@@ -43,6 +45,7 @@ function App({
     <div className='content'>
       <Header />
       {buildContent()}
+      <div className='version'>{version}</div>
     </div>
   );
 }

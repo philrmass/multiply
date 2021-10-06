@@ -170,6 +170,31 @@ input[type=number]::-webkit-outer-spin-button {
   padding: var(--size-1) var(--size-2);
 }
 
+.stats-menu-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--darkGray);
+}
+
+.stats-menu-status {
+  font-size: 0.8em;
+  margin-left: var(--size-1);
+}
+
+.stats-menu-button {
+  background: initial;
+  border: none;
+}
+
+.stats-menu-button:hover {
+  font-weight: bold;
+}
+
+.stats-selected {
+  font-weight: bold;
+}
+
 .stats-container {
 }
 
@@ -216,8 +241,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .version {
   position: absolute;
-  bottom: 0;
-  right: 50%;
+  bottom: var(--size-1);
+  right: var(--size-1);
   color: var(--darkGray);
   font-size: 0.6em;
 }

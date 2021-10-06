@@ -6,6 +6,7 @@ import {
   START,
   STOP,
   TOGGLE_STATS,
+  SET_STATS,
 } from '../constants';
 import {
   getAllQuestions,
@@ -145,6 +146,16 @@ export default function reducer(state = defaultState, action) {
         ...state,
         showStats: !state.showStats,
       };
+    case SET_STATS: {
+      const stats = { ...action.stats };
+
+      saveItem(statsKey, stats);
+
+      return {
+        ...state,
+        stats,
+      };
+    }
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import {
   START,
   STOP,
   TOGGLE_STATS,
+  SET_STATS,
 } from '../constants';
 
 export function init(today) {
@@ -33,4 +34,8 @@ export function answerQuestion(value) {
 
 export function toggleStats() {
   return { type: TOGGLE_STATS };
+}
+
+export function setStats(stats) {
+  return { type: SET_STATS, stats };
 }

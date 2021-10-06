@@ -7,6 +7,7 @@ import { stop, toggleStats } from '../redux/game/actions';
 
 /* eslint-disable react/prop-types */
 function Header({
+  showStats,
   today,
   total,
   min,
@@ -15,7 +16,6 @@ function Header({
   toggleStats,
 }) {
   const date = getDateString(today);
-  const version = '0.0.1';
 
   useEffect(() => {
     if (answered === min) {
@@ -52,17 +52,19 @@ function Header({
     );
   };
 
+  const statsClasses = showStats ? 'stats-selected' : '';
+
   return (
     <div className='header'>
       <div>{date}</div>
-      <div className='version'>{version}</div>
       {buildProgress()}
-      <div onClick={toggleStats}>Stats</div>
+      <div className={statsClasses} onClick={toggleStats}>Stats</div>
     </div>
   );
 }
 
 const mapState = (state) => ({
+  showStats: state.game.showStats,
   today: state.game.today,
   total: state.game.total,
   min: state.game.min,

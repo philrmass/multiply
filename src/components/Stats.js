@@ -1,20 +1,63 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import { saveData, loadData, copyData } from '../utilities/files';
 import { parseQuestion } from '../utilities/questions';
 import { getAverageTime, getTotalTime, getWrongPercent } from '../utilities/stats';
 import { getDateString, getSecondsString, getMinutesString } from '../utilities/time';
+import { setStats } from '../redux/game/actions';
 
 /* eslint-disable react/prop-types */
 function Stats({
   stats,
+  setStats,
 }) {
   const [byDay, setByDay] = useState(true);
   const [type, setType] = useState('averageTime');
+  const [status, setStatus] = useState('');
 
   const setShown = (byDay, type) => {
     setByDay(byDay);
     setType(type);
+  };
+
+  const save = async () => {
+    const filePath = getFilePath();
+
+    await saveData(filePath, stats);
+    setStatus(`Saved ${getDataSummary(stats)} to ${filePath}`);
+    setTimeout(() => setStatus(''), 5000);
+  };
+
+  const load = async () => {
+    const data = await loadData();
+
+    setStats(data);
+    setStatus(`Loaded ${getDataSummary(data)}`);
+    setTimeout(() => setStatus(''), 5000);
+  };
+
+  const copy = async () => {
+    await copyData(stats);
+
+    setStatus(`Copied ${getDataSummary(stats)} to clipboard`);
+    setTimeout(() => setStatus(''), 5000);
+  };
+
+  const getFilePath = (at = Date.now()) => {
+    const when = new Date(at);
+    const year = when.getFullYear();
+    const month = `${when.getMonth() + 1}`.padStart(2, '0');
+    const date = `${when.getDate()}`.padStart(2, '0');
+
+    return `multiplyStats_${year}_${month}_${date}.json`;
+  };
+
+  const getDataSummary = (stats) => {
+    const days = Object.values(stats.days).length;
+    const questions = Object.values(stats.questions).length;
+
+    return `${days} days and ${questions} questions`;
   };
 
   const buildMenu = () => (
@@ -28,6 +71,14 @@ function Stats({
           <div className='stats-menu-label'>By Question</div>
           {buildQuestionOptions()} 
         </div>
+        <div className='stats-menu-buttons'>
+          <div className='stats-menu-status'>{status}</div>
+          <div>
+            <button className='stats-menu-button' onClick={save}>Save</button>
+            <button className='stats-menu-button' onClick={load}>Load</button>
+            <button className='stats-menu-button' onClick={copy}>Copy</button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -40,15 +91,20 @@ function Stats({
       'missed': 'Missed',
     };
 
-    return Object.keys(types).map((type) => (
-      <div
-        className='stats-menu-item'
-        key={`day-${type}`}
-        onClick={() => setShown(true, type)}
-      >
-        {types[type]}
-      </div>
-    ));
+    return Object.keys(types).map((itemType) => {
+      const isSelected = byDay && itemType === type;
+      const classes = `stats-menu-item ${isSelected ? 'stats-selected' : ''}`;
+
+      return (
+        <div
+          className={classes}
+          key={`day-${itemType}`}
+          onClick={() => setShown(true, itemType)}
+        >
+          {types[itemType]}
+        </div>
+      );
+    });
   };
 
   const buildQuestionOptions = () => {
@@ -57,15 +113,20 @@ function Stats({
       'missed': 'Missed %',
     };
 
-    return Object.keys(types).map((type) => (
-      <div
-        className='stats-menu-item'
-        key={`question-${type}`}
-        onClick={() => setShown(false, type)}
-      >
-        {types[type]}
-      </div>
-    ));
+    return Object.keys(types).map((itemType) => {
+      const isSelected = !byDay && itemType === type;
+      const classes = `stats-menu-item ${isSelected ? 'stats-selected' : ''}`;
+
+      return (
+        <div
+          className={classes}
+          key={`question-${itemType}`}
+          onClick={() => setShown(false, itemType)}
+        >
+          {types[itemType]}
+        </div>
+      );
+    });
   };
 
   const buildStats = () => {
@@ -77,7 +138,7 @@ function Stats({
   };
 
   const buildDayStats = () => {
-    const days = Object.values(stats.days);
+    const days = Object.values(stats.days).reverse();
     const dates = days.map((day) => getDateString(day.today));
     const values = days.map((day) => getDayValue(day));
     const max = Math.max(...values);
@@ -222,4 +283,8 @@ const mapState = (state) => ({
   stats: state.game.stats,
 });
 
-export default connect(mapState)(Stats);
+const mapDispatch = {
+  setStats,
+};
+
+export default connect(mapState, mapDispatch)(Stats);
