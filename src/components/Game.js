@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { stop, pickQuestion, repeatQuestion, answerQuestion } from '../redux/game/actions';
 
+import Keyboard from './Keyboard';
+
 /* eslint-disable react/prop-types */
 function Game({
   first,
@@ -59,6 +61,7 @@ function Game({
       );
     }
 
+    //??? readonly
     return (
       <input
         ref={inputRef}
@@ -74,9 +77,7 @@ function Game({
 
   return (
     <div className='game'>
-      <div className='stop'>
-        <button onClick={stop}>Stop</button>
-      </div>
+      <div className='gameSpacer'></div>
       <div className='gameContent'>
         <form
           className='problem'
@@ -88,6 +89,10 @@ function Game({
           </div>
           {buildResult()} 
         </form>
+        <Keyboard />
+      </div>
+      <div className='stop'>
+        <button onClick={stop}>Stop</button>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ function App({
       return <Game />;
     }
 
-    if (!showStats) {
+    if (showStats) {
       return <Stats />;
     }
 
