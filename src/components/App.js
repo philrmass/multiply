@@ -17,7 +17,7 @@ function App({
   showStats,
   init,
 }) {
-  const version = '0.0.4';
+  const version = '0.0.5';
 
   const checkDay = () => {
     const currentDay = getCurrentDay();
