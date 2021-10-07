@@ -34,15 +34,23 @@ function Game({
     }
   }, [showResult, isCorrect]);
 
-  const onInput = (e) => {
-    setValue(e.target.value);
-  };
+  const handleClick = (key) => {
+    const maxLen = 3;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (value) {
-      answerQuestion(Number(value));
-      setValue('');
+    if (key === 'Go') {
+      if (value) {
+        answerQuestion(Number(value));
+        setValue('');
+      }
+    } else if (key === 'Back') {
+      setValue((value) => value.slice(0, -1));
+    } else {
+      setValue((value) => {
+        if (value.length < maxLen) {
+          return value + key;
+        }
+        return value;
+      });
     }
   };
 
@@ -61,35 +69,31 @@ function Game({
       );
     }
 
-    //??? readonly
     return (
       <input
         ref={inputRef}
+        readOnly={true}
         type='number'
         min='1'
         max='999'
         className='answer'
         value={value}
-        onInput={onInput}
       />
     );
   };
 
   return (
-    <div className='game'>
+    <div className='game' onKeyDown={(e) => console.log('key', e)}>
       <div className='gameSpacer'></div>
       <div className='gameContent'>
-        <form
-          className='problem'
-          onSubmit={onSubmit}
-        >
+        <form className='problem'>
           <div className='question'>
             <div>{first}</div>
             <div>{`x ${second}`}</div>
           </div>
           {buildResult()} 
         </form>
-        <Keyboard />
+        <Keyboard onClick={handleClick} />
       </div>
       <div className='stop'>
         <button onClick={stop}>Stop</button>
